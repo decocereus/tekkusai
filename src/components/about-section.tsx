@@ -74,11 +74,11 @@ export default function AboutSection() {
 
             <motion.p variants={itemVariants} className="text-gray-300 text-lg">
               Gaming, tech, and innovation; those are the things that drive me,
-              and I'm always looking for new ways to push the boundaries of
-              what's possible. I'm obsessed with quality and believe that great
-              products should look just as good as they perform. Everything I
-              create is for enthusiasts like myself who appreciate that same
-              blend of style and function.
+              and I&apos;m always looking for new ways to push the boundaries of
+              what&apos;s possible. I&apos;m obsessed with quality and believe
+              that great products should look just as good as they perform.
+              Everything I create is for enthusiasts like myself who appreciate
+              that same blend of style and function.
             </motion.p>
 
             <motion.div variants={itemVariants} className="flex gap-4 pt-4">

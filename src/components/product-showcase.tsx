@@ -141,7 +141,7 @@ export default function ProductShowcase({
             <motion.li variants={itemVariants} className="font-bold text-xl">
               {price}
             </motion.li>
-            {features.map((feature, index) => (
+            {features.map((feature) => (
               <motion.li
                 key={feature}
                 variants={itemVariants}
