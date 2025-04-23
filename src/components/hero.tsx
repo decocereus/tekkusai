@@ -198,12 +198,16 @@ const Hero = () => {
               <Link href="#product-showcase" scroll={true}>
                 <GradientButton text="Explore Products" />
               </Link>
-              <Link href="#about" scroll={true}>
+              <Link href="https://tekkus.ai/" scroll={true}>
                 <Button className=" bg-black hover:bg-transparent text-white font-medium px-8 py-6 border border-white/20 hover:border-white/40 shadow-lg rounded-full">
-                  <span className="">Our Story</span>
+                  <span className="">Real website</span>
                 </Button>
               </Link>
             </div>
+            <p className="text-xs text-gray-300  max-w-lg">
+              This is not the official website, just a mock. <br /> Please go to
+              the official website to make any purchases
+            </p>
           </div>
 
           <div className="relative">
