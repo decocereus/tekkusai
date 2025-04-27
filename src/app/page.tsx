@@ -1,10 +1,10 @@
 import Link from "next/link";
-import ProductShowcase from "@/components/product-showcase";
 import CompanyCard from "@/components/company-card";
 import AboutSection from "@/components/about-section";
 import Navbar from "@/components/navbar";
 import Image from "next/image";
 import Hero from "@/components/hero";
+import HoverProducts from "@/components/hover-products";
 
 export default function Home() {
   return (
@@ -13,7 +13,7 @@ export default function Home() {
 
       <main className="container mx-auto px-4 py-8">
         <Hero />
-        <ProductShowcase
+        {/* <ProductShowcase
           title="Singularity"
           subtitle="Founders Edition by tekkusai"
           price="$39"
@@ -28,7 +28,8 @@ export default function Home() {
           ]}
           imagePrimary="https://imagedelivery.net/O23G1A9SLo-A5s0I6mXQGA/f2b1fc19-04b0-481c-910f-99587b6a1500/1440"
           imageSecondary="https://imagedelivery.net/O23G1A9SLo-A5s0I6mXQGA/f515f723-9049-44fe-1420-ef8a74f8df00/1440"
-        />
+        /> */}
+        <HoverProducts />
         <AboutSection />
         <section className="py-20" id="companies">
           <h2 className="text-5xl font-bold mb-16 border-b border-gray-800 pb-4">
