@@ -42,3 +42,21 @@ export const RETAILERS = [
   { url: "https://www.respawngt.com", code: "my", name: "Malaysia" },
   { url: "https://www.maxgaming.com", code: "eu", name: "Europe" },
 ];
+
+export const PRODUCTS = [
+  {
+    title: "Singularity",
+    description: "Founders Edition",
+    cta: "Learn More",
+    redirectUrl: "#",
+    imageUrl:
+      "https://imagedelivery.net/O23G1A9SLo-A5s0I6mXQGA/f2b1fc19-04b0-481c-910f-99587b6a1500/1440",
+  },
+  {
+    title: "Lucid",
+    description: "Hear everything. Miss nothing.",
+    cta: "Discover Lucid",
+    redirectUrl: "#",
+    imageUrl: "/lucid.jpeg",
+  },
+];

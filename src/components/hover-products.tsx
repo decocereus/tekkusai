@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { Button } from "./ui/button";
 import Link from "next/link";
 import Image from "next/image";
-import { cn } from "@/lib/utils";
+import { cn, PRODUCTS } from "@/lib/utils";
+import useMediaQuery from "@/hooks/useMediaQuery";
 
 const Product = ({
   title,
@@ -25,7 +26,9 @@ const Product = ({
   isHovered: boolean | undefined;
   onHover: (isHovered: boolean | undefined) => void;
 }) => {
-  const getClipPath = () => {
+  const isDesktop = useMediaQuery("(min-width: 768px)");
+
+  const getClipPath = useCallback(() => {
     let topStart = 55;
     let bottomStart = 45;
 
@@ -42,26 +45,38 @@ const Product = ({
     } else {
       return `polygon(${topStart}% 0%, 100% 0%, 100% 100%, ${bottomStart}% 100%)`;
     }
+  }, [isHovered, isLeft]);
+
+  const isCurrentlyHovered = useMemo(() => {
+    return isHovered === isLeft;
+  }, [isHovered, isLeft]);
+
+  const handleMouseEnter = () => {
+    if (isDesktop) {
+      onHover(isLeft);
+    }
   };
 
-  const contentPosition = isLeft
-    ? "left-[25%] -translate-x-1/2"
-    : "right-[25%] translate-x-1/2";
-
-  const isCurrentlyHovered = isHovered === isLeft;
+  const handleMouseLeave = () => {
+    if (isDesktop) {
+      onHover(undefined);
+    }
+  };
 
   return (
     <div
       className={cn(
-        "absolute inset-0 transition-all duration-500 ease-in-out overflow-hidden"
+        "relative w-full h-[350px] rounded-lg overflow-hidden",
+        "md:absolute md:inset-0 md:h-auto md:rounded-none",
+        "transition-all duration-500 ease-in-out"
       )}
-      style={{ clipPath: getClipPath() }}
-      onMouseEnter={() => onHover(isLeft)}
-      onMouseLeave={() => onHover(undefined)}
+      style={isDesktop ? { clipPath: getClipPath() } : {}}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       <div
         className={cn(
-          "absolute inset-0 transition-transform duration-500 ease-in-out origin-center transform-preserve-3d"
+          "absolute inset-0 transition-transform duration-500 ease-in-out origin-center"
         )}
       >
         <Image
@@ -71,21 +86,26 @@ const Product = ({
           unoptimized
           className={cn(
             "absolute inset-0 z-0 object-cover opacity-60 transition-transform duration-500 ease-in-out",
-            isLeft ? "object-right" : "object-left",
-            isCurrentlyHovered && "scale-125"
+            "object-center",
+            isLeft ? "md:object-right" : "md:object-left",
+            isDesktop && isCurrentlyHovered && "scale-125"
           )}
         />
         <div
           className={cn(
-            "absolute top-1/2 -translate-y-1/2 flex flex-col items-center text-center justify-center gap-y-4 font-medium z-10 max-w-[40%] transition-transform duration-500 ease-in-out",
-            contentPosition,
-            isCurrentlyHovered && "scale-105"
+            "absolute inset-0 flex flex-col items-center justify-center p-4",
+            "md:inset-auto md:top-1/2 md:-translate-y-1/2 md:items-start md:p-0",
+            "gap-y-4 font-medium z-10 max-w-[80%] md:max-w-[40%] transition-transform duration-500 ease-in-out mx-auto",
+            isLeft
+              ? "md:left-[25%] md:-translate-x-1/2"
+              : "md:right-[25%] md:translate-x-1/2",
+            isDesktop && isCurrentlyHovered && "scale-105"
           )}
         >
-          <p className="text-4xl font-bold">{title}</p>
-          <p className="text-lg">{description}</p>
-          <Link href={redirectUrl} target="_blank">
-            <Button className="bg-white text-black hover:bg-gray-100">
+          <p className="text-4xl font-bold text-center md:w-full">{title}</p>
+          <p className="text-lg text-center md:w-full">{description}</p>
+          <Link href={redirectUrl} target="_blank" className="self-center">
+            <Button className="bg-white text-black hover:bg-gray-100 self-center">
               <p className="text-sm">{cta}</p>
             </Button>
           </Link>
@@ -95,24 +115,6 @@ const Product = ({
   );
 };
 
-const products = [
-  {
-    title: "Singularity",
-    description: "Founders Edition",
-    cta: "Learn More",
-    redirectUrl: "#",
-    imageUrl:
-      "https://imagedelivery.net/O23G1A9SLo-A5s0I6mXQGA/f2b1fc19-04b0-481c-910f-99587b6a1500/1440",
-  },
-  {
-    title: "Lucid",
-    description: "Hear everything. Miss nothing.",
-    cta: "Discover Lucid",
-    redirectUrl: "#",
-    imageUrl: "/lucid.jpeg",
-  },
-];
-
 const HoverProducts = () => {
   const [hoveredIndex, setHoveredIndex] = useState<boolean | undefined>(
     undefined
@@ -120,8 +122,8 @@ const HoverProducts = () => {
 
   return (
     <div className="w-full flex items-center justify-center">
-      <div className="relative w-full max-w-2xl h-[500px] md:h-[400px] rounded-lg overflow-clip">
-        {products.map((product, index) => (
+      <div className="relative w-full md:max-w-2xl h-auto md:h-[400px] flex flex-col gap-4 p-4 md:p-0 md:block md:gap-0 md:rounded-lg md:overflow-clip">
+        {PRODUCTS.map((product, index) => (
           <Product
             key={product.title}
             {...product}
