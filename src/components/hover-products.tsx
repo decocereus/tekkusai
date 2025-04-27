@@ -33,11 +33,11 @@ const Product = ({
     let bottomStart = 45;
 
     if (isHovered === true) {
-      topStart = 70;
-      bottomStart = 60;
+      topStart = 60;
+      bottomStart = 50;
     } else if (isHovered === false) {
-      topStart = 40;
-      bottomStart = 30;
+      topStart = 44;
+      bottomStart = 34;
     }
 
     if (isLeft) {
